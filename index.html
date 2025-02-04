@@ -2,6 +2,10 @@
 <html>
 <head>
   <title>HUD Circular Azul</title>
+  <!-- Importamos la fuente "Share Tech Mono" desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     /* Estilos generales */
     body {
@@ -44,6 +48,8 @@
       position: relative;
       z-index: 10;
       transform: translateZ(30px);
+      /* Aplicamos la fuente Share Tech Mono */
+      font-family: 'Share Tech Mono', monospace;
     }
     
     .timer::before,
@@ -53,6 +59,7 @@
       top: 0;
       left: 0;
       color: rgba(0,243,255,0.2);
+      font-family: 'Share Tech Mono', monospace;
     }
     
     .timer::before {
@@ -293,9 +300,18 @@
     // Iniciar cuenta atrás
     startCountdown(minutes, seconds);
     
-    // Efecto de sonido
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    // --- Beep repetido sincronizado con la scan line ---
+    // Dado que la animación de la scan line dura 4 s y comienza en 0% (parte superior),
+    // se asume que pasa por el centro (50%) a los 2000 ms.
+    // Por ello, se espera 2000 ms y luego se repite el beep cada 4000 ms.
+    setTimeout(() => {
+      beep();
+      setInterval(beep, 4000);
+    }, 2000);
+    
+    // Función beep que utiliza la Web Audio API para reproducir un tono
     function beep() {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
       const gainNode = audioContext.createGain();
       
@@ -309,7 +325,6 @@
       oscillator.start();
       setTimeout(() => oscillator.stop(), 100);
     }
-    beep();
   </script>
 </body>
 </html>
