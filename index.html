@@ -23,6 +23,20 @@
       perspective: 1000px;
     }
     
+    /* Overlay de textura con 3px-tile */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/3px-tile.png');
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 999;
+    }
+    
     .hud-container {
       position: relative;
       transform-style: preserve-3d;
@@ -51,7 +65,7 @@
       position: relative;
       z-index: 10;
       transform: translateZ(30px);
-      /* Aplicamos la fuente Share Tech Mono */
+      /* Se utiliza la fuente Share Tech Mono */
       font-family: 'Share Tech Mono', monospace;
     }
     
@@ -73,14 +87,57 @@
       transform: translateZ(-25px);
     }
     
+    /* Efecto Glitch para el Timer */
+    .timer.glitch {
+      position: relative;
+      animation: glitch 1.5s infinite;
+    }
+    
+    .timer.glitch::before,
+    .timer.glitch::after {
+      content: attr(data-time);
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.8;
+    }
+    
+    .timer.glitch::before {
+      color: #fff;
+      animation: glitch-anim 2s infinite linear alternate-reverse;
+    }
+    
+    .timer.glitch::after {
+      color: #ff00c1;
+      animation: glitch-anim2 3s infinite linear alternate-reverse;
+    }
+    
+    @keyframes glitch-anim {
+      0%   { clip: rect(10px, 9999px, 20px, 0); transform: translate(0); }
+      20%  { clip: rect(30px, 9999px, 40px, 0); transform: translate(-3px, 3px); }
+      40%  { clip: rect(50px, 9999px, 60px, 0); transform: translate(3px, -3px); }
+      60%  { clip: rect(15px, 9999px, 25px, 0); transform: translate(-2px, 2px); }
+      80%  { clip: rect(35px, 9999px, 45px, 0); transform: translate(2px, -2px); }
+      100% { clip: rect(10px, 9999px, 20px, 0); transform: translate(0); }
+    }
+    
+    @keyframes glitch-anim2 {
+      0%   { clip: rect(20px, 9999px, 30px, 0); transform: translate(0); }
+      20%  { clip: rect(40px, 9999px, 50px, 0); transform: translate(3px, -3px); }
+      40%  { clip: rect(25px, 9999px, 35px, 0); transform: translate(-3px, 3px); }
+      60%  { clip: rect(45px, 9999px, 55px, 0); transform: translate(2px, -2px); }
+      80%  { clip: rect(15px, 9999px, 25px, 0); transform: translate(-2px, 2px); }
+      100% { clip: rect(20px, 9999px, 30px, 0); transform: translate(0); }
+    }
+    
     .date-display {
       margin-top: 10px;
       color: #00f3ff;
-      font-size: 1em;
+      font-size: 1.65em;
       text-shadow: 0 0 10px #00f3ff;
       text-align: center;
       z-index: 10;
-      /* Se asigna la nueva fuente tech ultrawide */
+      /* Se utiliza la fuente Orbitron */
       font-family: 'Orbitron', sans-serif;
     }
     
@@ -89,7 +146,6 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      /* Centrado en el contenedor */
       transform: translate(-50%, -50%);
       border-radius: 50%;
     }
@@ -120,16 +176,14 @@
     .thickness-2 { --thickness: 2px; }
     .thickness-6 { --thickness: 6px; }
     
-    /* Tamaños de cada grupo (todos mayores al 100% para que ningún anillo quede dentro del círculo del contador) */
+    /* Cambios en la separación entre anillos */
     .inner { width: 102%; height: 102%; }
-    .unique1 { width: 104%; height: 104%; }  /* entre inner e intermediate */
-    .intermediate { width: 108%; height: 108%; }
-    .unique2 { width: 112%; height: 112%; }  /* entre intermediate y outer */
-    .outer { width: 116%; height: 116%; }
-    
-    /* Nuevos grupos animados: */
-    .extra1 { width: 125%; height: 125%; }  /* entre los sólidos */
-    .extra2 { width: 136%; height: 136%; }  /* grupo animado exterior */
+    .unique1 { width: 110%; height: 110%; }
+    .intermediate { width: 116%; height: 116%; }
+    .unique2 { width: 122%; height: 122%; }
+    .outer { width: 128%; height: 128%; }
+    .extra1 { width: 138%; height: 138%; }
+    .extra2 { width: 150%; height: 150%; }
     
     /* Anillos sólidos (estáticos) */
     .solid-ring {
@@ -142,7 +196,6 @@
       pointer-events: none;
     }
     
-    /* Animación de rotación */
     @keyframes rotate {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -215,39 +268,40 @@
   
   <div class="hud-container">
     <div class="hud">
-      <!-- Grupo Inner (innermost): tamaño 102%, animación estándar (8s), ambos con grosor 2px -->
+      <!-- Grupo Inner (innermost): tamaño 102% -->
       <div class="ring dashed inner thickness-2" style="--rotation: rotate 8s linear infinite;"></div>
       <div class="ring dashed inner thickness-2 reverse" style="--rotation: rotate 8s linear infinite;"></div>
       
-      <!-- Anillo único entre inner e intermediate: tamaño 104%, gira en sentido normal -->
+      <!-- Anillo único entre inner e intermediate: tamaño 110% -->
       <div class="ring dashed unique1 thickness-2" style="--rotation: rotate 10s linear infinite;"></div>
       
-      <!-- Grupo Intermediate (intermedio): tamaño 108%, animación lenta (12s) -->
+      <!-- Grupo Intermediate (intermedio): tamaño 116% -->
       <div class="ring dashed intermediate thickness-2" style="--rotation: rotate 12s linear infinite;"></div>
       <div class="ring dashed intermediate thickness-6 reverse" style="--rotation: rotate 12s linear infinite;"></div>
       
-      <!-- Anillo único entre intermediate y outer: tamaño 112%, gira en sentido contrario -->
+      <!-- Anillo único entre intermediate y outer: tamaño 122% -->
       <div class="ring dashed unique2 thickness-2 reverse" style="--rotation: rotate 10s linear infinite;"></div>
       
-      <!-- Grupo Outer (externo): tamaño 116%, animación rápida (6s), ambos con grosor 2px -->
+      <!-- Grupo Outer (externo): tamaño 128% -->
       <div class="ring dashed outer thickness-2" style="--rotation: rotate 6s linear infinite;"></div>
       <div class="ring dashed outer thickness-2 reverse" style="--rotation: rotate 6s linear infinite;"></div>
       
-      <!-- Grupo Sólido Interno: anillo sólido, tamaño 120% -->
-      <div class="solid-ring" style="width: 120%; height: 120%;"></div>
+      <!-- Grupo Sólido Interno: anillo sólido -->
+      <div class="solid-ring" style="width: 132%; height: 132%;"></div>
       
-      <!-- Grupo Extra1: animado, entre los sólidos, tamaño 125% -->
+      <!-- Grupo Extra1: animado, entre los sólidos -->
       <div class="ring dashed extra1 thickness-2" style="--rotation: rotate 10s linear infinite;"></div>
       <div class="ring dashed extra1 thickness-2 reverse" style="--rotation: rotate 10s linear infinite;"></div>
       
-      <!-- Grupo Sólido Externo: anillo sólido, tamaño 130% -->
-      <div class="solid-ring" style="width: 130%; height: 130%;"></div>
+      <!-- Grupo Sólido Externo: anillo sólido -->
+      <div class="solid-ring" style="width: 140%; height: 140%;"></div>
       
-      <!-- Grupo Extra2: animado, en la parte externa, tamaño 136% -->
+      <!-- Grupo Extra2: animado, en la parte externa -->
       <div class="ring dashed extra2 thickness-2" style="--rotation: rotate 14s linear infinite;"></div>
       <div class="ring dashed extra2 thickness-2 reverse" style="--rotation: rotate 14s linear infinite;"></div>
       
       <div class="particles"></div>
+      <!-- El timer se define sin la clase "glitch" en el HTML base; se agregará o quitará según el parámetro -->
       <div class="timer" id="timer" data-time="00:00">00:00</div>
       <div class="date-display" id="date"></div>
     </div>
@@ -258,6 +312,16 @@
     function getParameter(name) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(name);
+    }
+    
+    // Configuración del efecto glitch según parámetro de la URL
+    const glitchParam = getParameter('glitch');
+    const timerElement = document.getElementById('timer');
+    // Si glitch=off, se elimina la clase; si no, se asegura que esté presente
+    if (glitchParam === 'off') {
+      timerElement.classList.remove('glitch');
+    } else {
+      timerElement.classList.add('glitch');
     }
     
     function startCountdown(minutes, seconds) {
@@ -274,10 +338,8 @@
       const countdown = setInterval(() => {
         if (totalSeconds <= 0) {
           clearInterval(countdown);
-          updateDisplay(); // Aseguramos que muestre 00:00
+          updateDisplay();
     
-          // Si se especificó el parámetro "scene" y se está ejecutando como browser source de OBS,
-          // después de una pausa de 500 ms se cambia la escena usando window.obsstudio.setCurrentScene(nombre)
           const sceneName = getParameter('scene');
           if (sceneName && window.obsstudio && typeof window.obsstudio.setCurrentScene === 'function') {
             setTimeout(() => {
@@ -288,29 +350,21 @@
         }
         totalSeconds--;
         updateDisplay();
-        // Reproducir beep cada vez que cambia el segundero
         beep();
       }, 1000);
     
       updateDisplay();
     }
     
-    // Obtener parámetro de tiempo de la URL (por defecto 05:00)
     const timeParam = getParameter('time') || '05:00';
     const [minutes, seconds] = timeParam.split(':').map(Number);
     
-    // Mostrar fecha actual en formato corto (dd/mm/yyyy)
     const dateElement = document.getElementById('date');
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     dateElement.textContent = new Date().toLocaleDateString('es-ES', options);
     
-    // Iniciar cuenta atrás
     startCountdown(minutes, seconds);
     
-    // --- Se elimina el setTimeout/setInterval previo del beep ---
-    // La función beep se llamará cada vez que cambia el segundero dentro del contador.
-    
-    // Función beep que utiliza la Web Audio API para reproducir un tono
     function beep() {
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
       const oscillator = audioContext.createOscillator();
@@ -320,7 +374,7 @@
       gainNode.connect(audioContext.destination);
       
       oscillator.type = 'sine';
-      oscillator.frequency.value = 523.25; // Nota Do
+      oscillator.frequency.value = 523.25;
       gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
       
       oscillator.start();
