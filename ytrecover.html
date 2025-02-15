@@ -1,0 +1,134 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" media="screen"></link>
+<script type="text/javascript">
+async function checkLiveStream(channelId, apiKey) {
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&eventType=live&type=video&key=${apiKey}`;
+  
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.items?.[0]?.id?.videoId || null;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+</script>
+<title>YouTube Live Chat Checker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css>
+<style>
+@import url('http://fonts.cdnfonts.com/css/twenty-seven');
+body {
+  overflow: hidden;
+  background-color: rgba(0,0,0,0);
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+#logo-icon-container {
+  top: 50%;
+}
+
+div.unavail {
+  width: 100%;
+  max-width: 100%;
+  font-family: 'TWENTY-SEVEN', sans-serif;
+  font-size: 44px;
+  text-decoration: none;
+  text-align: center; 
+}
+
+div.ex1 {
+  color: #ffffff;
+  max-width: 100%;
+  width: 100%;
+  margin: auto;
+  text-align: center;  
+  position: absolute;
+  z-index: -2;
+  top: 50%;
+  transform: translateY(-50%);
+  text-shadow:
+    1px 1px 0px #ffffff,
+    1px -1px 0px #ffffff,
+    -1px 1px 0px #ffffff,
+    -1px -1px 0px #ffffff,
+    0 0 4px #bfefff,
+    0 0 6px #9fc9f7,
+    0 0 8px #76b1f3,
+    0 0 10px #4f9bf0, 
+    0 0 20px #1271da,
+    0 0 30px #1065c2,
+    0 0 40px #0e59ab;
+}
+
+div.ex2 {
+  color: #00c0fd;
+  max-width: 100%;
+  width: 100%;
+  margin: auto;
+  text-align: center;  
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+</style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<div id="error-message" style="display: none; color: red; text-align: center; position: fixed; top: 20px; width: 100%;"></div>
+<div>
+<script type="text/javascript">
+// Get channel ID from URL parameter or use default
+const urlParams = new URLSearchParams(window.location.search);
+const channelId = urlParams.get('channelId') || 'UCN6G4inO6lIGUowpz2_czyA';
+const apiKey = 'AIzaSyB1jU6hshPwdtwpSJi3yjjBytK7I_Ciy10'; // Public key (restrict in Google Cloud Console)
+
+// DOM elements
+const errorEl = document.getElementById('error-message');
+const countdownEl = document.createElement("div");
+countdownEl.id = "countdown";
+countdownEl.style.cssText = "color: white; text-align: center; position: fixed; bottom: 20px; width: 100%;";
+document.body.appendChild(countdownEl);
+
+checkLiveStream(channelId, apiKey)
+  .then(videoId => {
+    if (videoId) {
+      window.location.replace(`https://www.youtube.com/live_chat?dark_theme=1&is_popout=1&v=${videoId}`);
+    } else {
+      // Create message elements
+      const div1 = document.createElement("div");
+      div1.className = "unavail ex1";
+      div1.innerHTML = "El chat está<br>deshabilitado<br>para ésta<br>transmisión<br>en vivo.";
+      
+      const div2 = document.createElement("div");
+      div2.className = "unavail ex2";
+      div2.innerHTML = "El chat está<br>deshabilitado<br>para ésta<br>transmisión<br>en vivo.";
+
+      document.body.append(div1, div2);
+
+      // Start countdown
+      let seconds = 100;
+      const timer = setInterval(() => {
+        countdownEl.textContent = `Actualizando en ${seconds} segundos...`;
+        if(seconds-- <= 0) clearInterval(timer);
+      }, 1000);
+
+      setTimeout(() => location.reload(true), 100000);
+    }
+  })
+  .catch(error => {
+    errorEl.textContent = "Error al verificar el estado de la transmisión. Intentando de nuevo...";
+    errorEl.style.display = "block";
+    setTimeout(() => location.reload(true), 10000);
+  });
+</script>
+</div>
+</body>
+</html>
