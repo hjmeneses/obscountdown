@@ -95,18 +95,18 @@ const apiKey = 'AIzaSyB1jU6hshPwdtwpSJi3yjjBytK7I_Ciy10'; // Tu clave de API de 
 checkLiveStream(channelId, apiKey)
   .then(videoId => {
     if (videoId) {
-      console.log(`El canal est· transmitiendo en vivo. El identificador del video es: ${videoId}`);
+      console.log(`El canal est√° transmitiendo en vivo. El identificador del video es: ${videoId}`);
 	  window.location.replace(`https://www.youtube.com/live_chat?dark_theme=1&is_popout=1&v=${videoId}`);
     } else {
-      console.log('El canal no est· transmitiendo en vivo.');
+      console.log('El canal no est√° transmitiendo en vivo.');
 	  var div = document.createElement("div");
       div.className = "unavail ex1";
-      div.innerHTML = "El chat est·<br>deshabilitado<br>para Èsta<br>transmisiÛn<br>en vivo.";
+      div.innerHTML = "El chat est√°<br>deshabilitado<br>para √©sta<br>transmisi√≥n<br>en vivo.";
       var div2 = document.createElement("div");
       div2.className = "unavail ex2";
-      div2.innerHTML = "El chat est·<br>deshabilitado<br>para Èsta<br>transmisiÛn<br>en vivo.";
+      div2.innerHTML = "El chat est√°<br>deshabilitado<br>para √©sta<br>transmisi√≥n<br>en vivo.";
 
-      // A√±adimos el nuevo div al final del body
+      // A√É¬±adimos el nuevo div al final del body
       document.body.appendChild(div);
 	  document.body.appendChild(div2);
 		setInterval(function () {
