@@ -105,11 +105,11 @@ checkLiveStream(channelId, apiKey)
       // Create message elements
       const div1 = document.createElement("div");
       div1.className = "unavail ex1";
-      div1.innerHTML = "El chat est·<br>deshabilitado<br>para Èsta<br>transmisiÛn<br>en vivo.";
+      div1.innerHTML = "El chat est√°<br>deshabilitado<br>para √©sta<br>transmisi√≥n<br>en vivo.";
       
       const div2 = document.createElement("div");
       div2.className = "unavail ex2";
-      div2.innerHTML = "El chat est·<br>deshabilitado<br>para Èsta<br>transmisiÛn<br>en vivo.";
+      div2.innerHTML = "El chat est√°<br>deshabilitado<br>para √©sta<br>transmisi√≥n<br>en vivo.";
 
       document.body.append(div1, div2);
 
@@ -124,7 +124,7 @@ checkLiveStream(channelId, apiKey)
     }
   })
   .catch(error => {
-    errorEl.textContent = "Error al verificar el estado de la transmisiÛn. Intentando de nuevo...";
+    errorEl.textContent = "Error al verificar el estado de la transmisi√≥n. Intentando de nuevo...";
     errorEl.style.display = "block";
     setTimeout(() => location.reload(true), 10000);
   });
