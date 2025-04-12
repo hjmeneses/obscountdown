@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reloj Binario</title>
+  <style>
+    body {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .reloj {
+      display: grid;
+      grid-template-rows: repeat(3, 60px);
+      grid-template-columns: repeat(6, 60px);
+      gap: 10px;
+    }
+    .celda {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #222;
+      box-shadow: inset 0 0 10px #000;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    .encendido {
+      background-color: #00ffcc;
+      box-shadow: 0 0 15px #00ffcc, inset 0 0 5px #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="reloj" id="reloj-binario"></div>
+
+  <script>
+    const reloj = document.getElementById('reloj-binario');
+
+    // Crea 18 celdas (6 columnas x 3 filas)
+    for (let i = 0; i < 18; i++) {
+      const celda = document.createElement('div');
+      celda.classList.add('celda');
+      reloj.appendChild(celda);
+    }
+
+    function actualizarReloj() {
+      const ahora = new Date();
+      const h = ahora.getHours();
+      const m = ahora.getMinutes();
+      const s = ahora.getSeconds();
+
+      const binHora = h.toString(2).padStart(6, '0');
+      const binMin = m.toString(2).padStart(6, '0');
+      const binSeg = s.toString(2).padStart(6, '0');
+
+      const binTotal = binHora + binMin + binSeg;
+      const celdas = document.querySelectorAll('.celda');
+
+      for (let i = 0; i < binTotal.length; i++) {
+        celdas[i].classList.toggle('encendido', binTotal[i] === '1');
+      }
+    }
+
+    actualizarReloj();
+    setInterval(actualizarReloj, 1000);
+  </script>
+</body>
+</html>
