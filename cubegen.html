@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generador de URL para Cubo 3D</title>
+  <style>
+    body {
+      background: #1e1e1e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00d4ff;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00d4ff;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #output {
+      margin-top: 30px;
+      padding: 10px;
+      background: #333;
+      border-radius: 6px;
+      word-break: break-all;
+    }
+
+    a {
+      color: #00d4ff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Generador de URL para Cubo 3D</h1>
+
+  <label>Frente</label>
+  <input type="text" id="front" placeholder="https://...">
+
+  <label>Atrás</label>
+  <input type="text" id="back" placeholder="https://...">
+
+  <label>Derecha</label>
+  <input type="text" id="right" placeholder="https://...">
+
+  <label>Izquierda</label>
+  <input type="text" id="left" placeholder="https://...">
+
+  <label>Arriba</label>
+  <input type="text" id="top" placeholder="https://...">
+
+  <label>Abajo</label>
+  <input type="text" id="bottom" placeholder="https://...">
+
+  <button onclick="generateURL()">Generar URL</button>
+
+  <div id="output"></div>
+
+  <script>
+    function generateURL() {
+      const baseUrl = "https://hjmeneses.github.io/obscountdown/cube.html"; // Reemplaza con la URL real de tu cubo
+      const params = new URLSearchParams();
+
+      ['front', 'back', 'right', 'left', 'top', 'bottom'].forEach(face => {
+        const value = document.getElementById(face).value;
+        if (value) {
+          params.set(face, value);
+        }
+      });
+
+      const finalUrl = `${baseUrl}?${params.toString()}`;
+      document.getElementById("output").innerHTML = `<strong>URL generada:</strong><br><a href="${finalUrl}" target="_blank">${finalUrl}</a>`;
+    }
+  </script>
+
+</body>
+</html>
