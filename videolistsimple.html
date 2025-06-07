@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset=utf-8 />
+    <title>
+      Social Media Cards
+    </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize-opentype.css/0.2.4/normalize-opentype.min.css" integrity="sha512-C7dUXX4Gjv3oOFwuIJ2bMn+ZDvAlCLKH5JKzHMYVQUecTEVkHzu/SL5N6hkyOWyUdV13EIZDukiFcAl9LU/hAg==" crossorigin="anonymous" />
+	<link rel="stylesheet" href="fonts.css" type="text/css" charset="utf-8" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/4.2.8/js/tooltipster.bundle.min.js" integrity="sha512-ZKNW/Nk1v5trnyKMNuZ6kjL5aCM0kUATbpnWJLPSHFk/5FxnvF9XmpmjGbag6BEgmXiz7rL6o6uJF6InthyTSg==" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/obs-websocket-js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/4.2.8/css/tooltipster.bundle.min.css" integrity="sha512-RwhQzi0EhwZ9hHs18SqM7ICqW/MH/B17PouhdCuzaUQYEdx2S4WPgkhLeZPvGr2Kb1FIm4gaIbMJGwZtxDCLQA==" crossorigin="anonymous" />
+	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+	<script>
+        $(document).ready(function() {
+            $('.tooltip').tooltipster();
+        });
+    </script>
+
+	<script src="https://cdn.jsdelivr.net/npm/obs-websocket-js@5.0.6/dist/obs-ws.global.min.js"></script>
+
+	<style> 
+	img {
+		margin-top: 10px;
+		margin-left: 10px;
+		border-radius: 5px;
+		filter: drop-shadow(4px 4px 4px #181818);
+	}
+
+	.btn{
+		cursor: pointer;
+		color:#cccccc;
+		text-decoration:none;
+	}
+	/* width */
+	::-webkit-scrollbar {
+	  width: 0px;
+	  height: 0px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  box-shadow: inset 0 0 0 grey; 
+	  border-radius: 0px;
+	}
+	 
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: red; 
+	  border-radius: 0px;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #b30000; 
+	}
+	
+	.button:focus,.button:active {
+		background-color: #660000;
+		outline: none !important;
+		box-shadow: none;
+	}
+
+	.button1 {
+		border-radius: 2px;
+		bottom:135px;
+	}
+	.button2 {
+		border-radius: 2px;
+		bottom:108px;
+	}
+	.button3 {
+		border-radius: 2px;
+		bottom:81px;
+	}
+	.button4 {
+		border-radius: 2px;
+		bottom:54px;
+	}
+	.button5 {
+		border-radius: 2px;
+		bottom:27px;
+	}
+	.button6 {
+		border-radius: 2px;
+		bottom:0;
+	}
+	.toolbar {
+		height: 168px; 
+		color: #fff;
+		margin: 0px auto;
+		background-color: rgba(255,255,255,0.06);
+		border: 1px solid rgba(255,255,255,0.1);
+		width: 100%;
+		border-radius: 2px;
+		padding: 0px;
+		backdrop-filter: blur(10px); 
+		position:fixed; 
+		width:100%; 
+		bottom:0; 
+		z-index:900;
+	}
+	.glass-panel {
+	  color: #fff;
+	  margin: 4px auto;
+	  background-color: rgba(255,255,255,0.06);
+	  border: 1px solid rgba(255,255,255,0.1);
+	  width: 100%;
+	  border-radius: 15px;
+	  padding: 0px;
+	  backdrop-filter: blur(10px);
+	  text-overflow: ellipsis !important;
+	  text-align: justify;
+	  overflow-wrap: break-word;
+	}
+
+	.glass-button {
+	  display: inline-block;
+	  padding: 6px 2px;
+	  border: 0;
+	  text-decoration: none;
+	  border-radius: 10px;
+	  background-color: rgba(255,255,255,0.1);
+	  border: 1px solid rgba(255,255,255,0.1);
+	  backdrop-filter: blur(30px);
+	  color: rgba(255,255,255,0.8);
+	  font-size: 10px;
+	  letter-spacing: 1px;
+	  cursor: pointer;
+	  //text-transform: uppercase;
+	}
+
+	.glass-button:hover {
+	  background-color: rgba(255,255,255,0.2);
+	}
+
+	/* Extra styles for demo */
+	/* Article:  https://superdevresources.com/glassmorphism-ui-css/ */
+	body {
+	  //background: url(https://files.catbox.moe/y3mro7.jpg) no-repeat center center fixed;
+	  //background: url(https://files.catbox.moe/743l5e.jpg) no-repeat center center fixed;
+	  //background: url(https://files.catbox.moe/s7hkxo.png) no-repeat center center fixed;
+	  //background: url(https://files.catbox.moe/tx0jxb.jpg) no-repeat center center fixed;
+	  //background: url(https://files.catbox.moe/5za0kd.jpg) no-repeat center center fixed;
+	  //background: url(https://files.catbox.moe/fh8puu.jpg) no-repeat center center fixed;
+	  //background: url(https://files.catbox.moe/6hrwin.png) no-repeat center center fixed;
+	  background: url(https://files.catbox.moe/zdotvs.png) no-repeat center center fixed;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+	  //text-align: center;
+	  font-family: 'Open Sans', sans-serif;
+	}
+
+	.glass-panel {  
+	  max-width: 342px;
+	  text-overflow: ellipsis !important;
+	}
+
+	.glass-button {
+	  position:fixed;
+	  margin: 0px;
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+	  width: 100%;
+	  z-index:1000 !important;
+	}
+
+	a, h1, h1 a {
+	  min-height: 120px;
+	  width: 90%;
+	  max-width: 700px;
+	  vertical-align: middle;
+	  text-align: center;
+	  margin: 0 auto;
+	  text-decoration: none;
+	  color: #fff;
+	  padding-top: 60px;
+	  color: rgba(255,255,255,0.8);
+	}
+
+	p {
+	  width: 80%;
+	  margin: 0 auto;
+	  padding-bottom: 32px;
+	  color: rgba(255,255,255,0.6);
+	}
+	
+	</style>
+  <script src="my_new_script.js"></script>
+  </head>
+  
+  <body>
+  <div class="container" style="color: white;">
+  </div>
+<script>
+new ClipboardJS('.btn');
+</script>
+
+<div id="video-list"></div>
+
+
+<script>
+    // Coloca aquí la URL que contiene el archivo de texto con los enlaces a los videos
+    const URL = 'https://files.catbox.moe/17t417.txt';
+
+    // Hacer una llamada para obtener el contenido del archivo de texto
+    fetch(URL)
+      .then(response => response.text())
+      .then(data => {
+        // Separar el contenido del archivo de texto en líneas y filtrar aquellas que contengan enlaces a videos de YouTube
+        const videoLinks = data.split('\n').filter(line => line.includes('youtube.com'));
+
+        // Crear los elementos HTML para mostrar la lista de enlaces a videos
+        const videoListContainer = document.querySelector('#video-list');
+        videoLinks.forEach(link => {
+          const videoID = link.split('v=')[1];
+          const videoAPIURL = `https://www.googleapis.com/youtube/v3/videos?id=${videoID}&part=snippet&key=AIzaSyCJ4jPQ_03h4kfVezieC0VpoQdUlrPky8c`;
+		  var a = 0;
+          fetch(videoAPIURL)
+            .then(response => response.json())
+            .then(data => {
+              const videoInfo = data.items[0].snippet;
+              const videoContainer = document.createElement('div');
+			  videoContainer.classList.add("glass-panel");
+              //videoContainer.style.display = 'flex';
+              videoContainer.style.alignItems = 'center';
+              const thumbnail = document.createElement('img');
+              thumbnail.src = videoInfo.thumbnails.medium.url;
+              thumbnail.style.width = '320px';
+              //thumbnail.style.height = '90px';
+              videoContainer.appendChild(thumbnail);
+              const videoInfoContainer = document.createElement('div');
+              videoInfoContainer.style.marginLeft = '10px';
+			  videoInfoContainer.style.marginRight = '10px';
+			  videoInfoContainer.style.marginTop = '10px';
+			  videoInfoContainer.style.marginBottom = '10px';
+              const videoLink = document.createElement('a');
+              videoLink.href = link;
+			  console.log(videoLink.href);
+              videoLink.textContent = videoInfo.title;
+              videoLink.style.fontSize = '12px';
+              videoLink.style.fontWeight = 'bold';
+			  var shorturl = "http://127.0.0.1/OBSassets/videoplayback.html?videoid=" + videoID;
+			  console.log("shortu : " + shorturl + " this is the short");
+			  videoInfo.description = videoInfo.description.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>')
+														 .replace(/\n/g, '<br>');
+			  videoInfo.description += "<br><br><a class=\"tooltip btn\" title=\"Open in OBS source\" id=\"unobtrusive" + a + "\" style=\"font-size:11px;font-weight: 600;\" href=\"javascript:SetURLBrowserSource('Navigator','" + shorturl + "\');\">" + videoLink.href +"</a>&nbsp;";
+			  videoInfo.description += "<span class=\"material-icons btn tooltip\" style=\"font-size:11px; font-weight: 800;\" data-clipboard-text=\"" + videoLink.href + "\" role=\"img text\" aria-label=\"copy url\" alt=\"Copy url\" title=\"Copy url\">content_copy</span>&nbsp;";
+			  videoInfo.description += "<a href=\"execme.php?url=" + videoLink.href + "\" style=\"font-size:11px; font-weight: 800;\" class=\"tooltip btn\" target=\"execute\" title=\"Open in Chrome\"><span class=\"material-icons btn\" style=\"font-size:11px; font-weight: 800;\" >launch</span></a>";
+			  console.log("desc" + videoInfo.description);
+              const description = document.createElement('div');
+              description.innerHTML = videoInfo.description;
+              description.style.marginTop = '10px';
+			  description.style.fontSize = '11px';
+              videoInfoContainer.appendChild(videoLink);
+              videoInfoContainer.appendChild(description);
+              videoContainer.appendChild(videoInfoContainer);
+              videoListContainer.appendChild(videoContainer);
+            })
+            .catch(error => console.error(error));
+			a++;
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+
+<div style="height: 190px; ">
+<iframe src="empty.html" name="execute" title="execute" width="1" height="1" style="border:none;"></iframe>
+</div>
+<button class="glass-button button1" onClick="window.location.reload(true);">Refresh Dock</button>
+<button class="glass-button button2" onClick="javascript:SetURLBrowserSource('Navigator', 'http://127.0.0.1/OBSassets/emptyyt.html', true);;">Reset Video</button>
+<button class="glass-button button3" onClick="javascript:EnableFilter('Navigator', 'Distort', true);">Distort on</button>
+<button class="glass-button button4" onClick="javascript:EnableFilter('Navigator','Distort',false);">Distort off</button>
+<button class="glass-button button5" onClick="javascript:EnableFilter('Navigator','Pixelize',true);">Pixelize on</button>
+<button class="glass-button button6" onClick="javascript:EnableFilter('Navigator','Pixelize',false);">Pixelize off</button>
+<div class="toolbar" style="">
+</div>
+  </body>
+</html>
