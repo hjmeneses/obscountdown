@@ -46,7 +46,7 @@ const connectOBS = async () => {
     }
     try {
         const { obsWebSocketVersion, negotiatedRpcVersion } = await obs.connect(
-            'ws://localhost4466',
+            'wss://localhost4466',
             'h4cBbaWgqURlvXKO',
             { rpcVersion: 1 }
         );
